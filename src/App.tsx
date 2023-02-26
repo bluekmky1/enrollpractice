@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+import SlideHeader from "./Components/SlideHeader";
+import Router from "./Router";
+import { motion } from "framer-motion";
+import { openState } from "../src/atom";
+import { useRecoilValue } from "recoil";
+
+const Container = styled(motion.div)`
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
 
 function App() {
+  const openValue = useRecoilValue(openState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container
+      animate={{
+        x: openValue ? 0 : -193,
+        transition: { type: "tween", duration: 0.4 },
+      }}
+    >
+      <SlideHeader />
+      <Router></Router>
+    </Container>
   );
 }
 
