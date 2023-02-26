@@ -2,7 +2,7 @@ import styled from "styled-components";
 import SlideHeader from "./Components/SlideHeader";
 import Router from "./Router";
 import { motion } from "framer-motion";
-import { openState } from "../src/atom";
+import { slideropenState } from "../src/atom";
 import { useRecoilValue } from "recoil";
 
 const Container = styled(motion.div)`
@@ -12,7 +12,7 @@ const Container = styled(motion.div)`
 `;
 
 function App() {
-  const openValue = useRecoilValue(openState);
+  const openValue = useRecoilValue(slideropenState);
   return (
     <Container
       animate={{
@@ -20,8 +20,7 @@ function App() {
         transition: { type: "tween", duration: 0.4 },
       }}
     >
-      <SlideHeader />
-      <Router></Router>
+      <Router />
     </Container>
   );
 }

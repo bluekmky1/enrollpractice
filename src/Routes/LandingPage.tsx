@@ -5,7 +5,7 @@ const Container = styled.div`
 `;
 
 function LandingPage() {
-  return <Container>수강신청 페이지</Container>;
+  return <Container>Landing</Container>;
 }
 
 export default LandingPage;

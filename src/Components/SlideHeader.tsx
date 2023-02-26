@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { openState } from "../atom";
+import { slideropenState } from "../atom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSetRecoilState } from "recoil";
 import { useState } from "react";
+import { Link, useMatch } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -10,6 +11,7 @@ const Container = styled.div`
   background-color: #525a66;
 
   min-width: 193px;
+  max-width: 193px;
   height: 100vh;
 
   -webkit-user-select: none;
@@ -105,7 +107,8 @@ const DropDownItem = styled.div`
 
 function SlideHeader() {
   const [drop, setDrop] = useState(true);
-  const setOpen = useSetRecoilState(openState);
+  const setOpen = useSetRecoilState(slideropenState);
+  const priceMatch = useMatch(`/`);
   return (
     <Container>
       <Title onClick={() => setOpen((prev) => !prev)}>
@@ -140,16 +143,26 @@ function SlideHeader() {
         }}
       >
         <DropDownRow>
-          <DropDownTitle>공지사항</DropDownTitle>
+          <DropDownTitle>
+            <Link to="">공지사항</Link>
+          </DropDownTitle>
         </DropDownRow>
         <DropDownRow>
           <DropDownTitle>조회</DropDownTitle>
-          <DropDownItem>개설교과목 조회</DropDownItem>
-          <DropDownItem>소망가방 내역조회</DropDownItem>
-          <DropDownItem>수강신청 내역조회</DropDownItem>
+          <DropDownItem>
+            <Link to="/utility/createEnroll">연습용 과목 생성하기</Link>
+          </DropDownItem>
+          <DropDownItem>
+            <Link to="/utility/settingTime">수강신청 연습 시간 설정</Link>
+          </DropDownItem>
+          <DropDownItem>
+            <Link to="/utility/enrollResult">수강신청 연습 결과</Link>
+          </DropDownItem>
         </DropDownRow>
         <DropDownRow>
-          <DropDownTitle>수강신청</DropDownTitle>
+          <DropDownTitle>
+            <Link to="/enroll">수강신청</Link>
+          </DropDownTitle>
         </DropDownRow>
       </DropDownBox>
     </Container>

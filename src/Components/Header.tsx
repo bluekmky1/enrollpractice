@@ -1,7 +1,8 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { openState } from "../atom";
+import { slideropenState } from "../atom";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Container = styled(motion.div)`
   display: flex;
@@ -9,7 +10,7 @@ const Container = styled(motion.div)`
   height: 55px;
   border-bottom: 1px solid #2142a6;
   box-shadow: 3px 0 6px rgb(0 0 0 / 15%);
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   position: relative;
 `;
 
@@ -38,8 +39,13 @@ const LogoBox = styled.div`
   margin-right: 50px;
   padding-right: 20px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const Logo = styled.img`
@@ -111,7 +117,7 @@ const LogoutBtn = styled.button`
 `;
 
 function Header() {
-  const [open, setOpen] = useRecoilState(openState);
+  const [open, setOpen] = useRecoilState(slideropenState);
   return (
     <Container
       animate={{
@@ -139,7 +145,9 @@ function Header() {
         </svg>
       </MenuBtn>
       <LogoBox>
-        <Logo src="https://www.kyonggi.ac.kr/images/common/logo.png" />
+        <Link to="">
+          <Logo src="https://www.kyonggi.ac.kr/images/common/logo.png" />
+        </Link>
       </LogoBox>
       <TimeInfoBundle>
         <TimeOutBox>
