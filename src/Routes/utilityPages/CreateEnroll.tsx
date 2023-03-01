@@ -52,6 +52,7 @@ const EnrollTypeSelect = styled.select`
   margin: 0px 10px;
   min-width: 100px;
   font-size: 11px;
+  margin-bottom: 5px;
 `;
 const EnrollTypeOption = styled.option``;
 
@@ -61,7 +62,7 @@ const TableBox = styled.div`
   width: 550px;
 `;
 
-const ErrorDisplay = styled.div`
+const SelectBox = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -94,7 +95,7 @@ function CreateEnroll() {
   const onValid = (data: ICreateEnroll) => {
     if (data.category !== Categories.somang) {
       setError("category", {
-        message: "아직 과목번호 형태는 이용 불가 합니다.",
+        message: "아직 과목번호는 이용 불가합니다.",
       });
     }
     if (Enrolls.length > 6) {
@@ -121,21 +122,20 @@ function CreateEnroll() {
       <DisplayBox>
         <CreateForm onSubmit={handleSubmit(onValid)}>
           <FormItemLabel>수강신청 종류 선택</FormItemLabel>
-          <EnrollTypeSelect
-            defaultValue={Categories.somang}
-            {...register("category")}
-          >
-            <EnrollTypeOption value={Categories.somang}>
-              소망가방
-            </EnrollTypeOption>
-            <EnrollTypeOption value={Categories.subjectNum}>
-              추후 과목번호 형태 추가 예정...
-            </EnrollTypeOption>
-          </EnrollTypeSelect>
-          <ErrorDisplay>
+          <SelectBox>
+            <EnrollTypeSelect
+              defaultValue={Categories.somang}
+              {...register("category")}
+            >
+              <EnrollTypeOption value={Categories.somang}>
+                소망가방
+              </EnrollTypeOption>
+              <EnrollTypeOption value={Categories.subjectNum}>
+                추후 과목번호 형태 추가 예정...
+              </EnrollTypeOption>
+            </EnrollTypeSelect>
             <div>{errors.category?.message}</div>
-            <div>{}</div>
-          </ErrorDisplay>
+          </SelectBox>
           <CreateBtn
             animate={{
               backgroundColor: errors.root?.enrollAmount
