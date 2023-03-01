@@ -15,11 +15,23 @@ const ExplainBox = styled.div`
 
 function EnrollPage() {
   const enrollOpen = useRecoilValue(enrollopenState);
+  const List = [
+    "교양",
+    "전공",
+    "교직",
+    "연계(융합)",
+    "ROTC",
+    "일반대학원",
+    "기타대학원",
+    "외국어과목",
+  ];
 
   return (
     <Container>
       {enrollOpen ? (
-        <></>
+        <>
+          <ListBanner menuList={List} />
+        </>
       ) : (
         <ExplainBox>⚠️ 수강신청 기간이 아닙니다</ExplainBox>
       )}
