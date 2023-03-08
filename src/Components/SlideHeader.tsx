@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { slideropenState } from "../atom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useState } from "react";
 import { Link, useMatch } from "react-router-dom";
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   display: flex;
   flex-direction: column;
   background-color: #525a66;
@@ -107,11 +107,11 @@ const DropDownItem = styled.div`
 
 function SlideHeader() {
   const [drop, setDrop] = useState(true);
-  const setOpen = useSetRecoilState(slideropenState);
+  const [openValue, setOpenValue] = useRecoilState(slideropenState);
   const priceMatch = useMatch(`/`);
   return (
     <Container>
-      <Title onClick={() => setOpen((prev) => !prev)}>
+      <Title onClick={() => setOpenValue((prev) => !prev)}>
         <svg
           width="24"
           height="24"

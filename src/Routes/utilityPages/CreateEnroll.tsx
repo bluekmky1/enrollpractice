@@ -23,7 +23,7 @@ const DisplayBox = styled(motion.div)`
 const CreateForm = styled.form`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   width: 100%;
   min-height: 150px;
 `;
@@ -54,6 +54,12 @@ const EnrollTypeSelect = styled.select`
   font-size: 11px;
   margin-bottom: 5px;
 `;
+
+const ErrorBox = styled.div`
+  text-align: center;
+  font-size: 10px;
+`;
+
 const EnrollTypeOption = styled.option``;
 
 const TableBox = styled.div`
@@ -134,7 +140,7 @@ function CreateEnroll() {
                 추후 과목번호 형태 추가 예정...
               </EnrollTypeOption>
             </EnrollTypeSelect>
-            <div>{errors.category?.message}</div>
+            <ErrorBox>{errors.category?.message}</ErrorBox>
           </SelectBox>
           <CreateBtn
             animate={{

@@ -16,7 +16,7 @@ function App() {
   return (
     <Container
       animate={{
-        x: openValue ? 0 : -193,
+        x: openValue ? "0px" : "-193px",
         transition: { type: "tween", duration: 0.4 },
       }}
     >

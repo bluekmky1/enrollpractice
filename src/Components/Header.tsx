@@ -117,18 +117,18 @@ const LogoutBtn = styled.button`
 `;
 
 function Header() {
-  const [open, setOpen] = useRecoilState(slideropenState);
+  const [openValue, setOpenValue] = useRecoilState(slideropenState);
   return (
     <Container
       animate={{
-        width: open ? "100%" : "calc(100% + 193px)",
+        width: openValue ? "calc(100% + 0px)" : "calc(100% + 193px)",
         transition: { type: "tween", duration: 0.4 },
       }}
     >
       <MenuBtn
         variants={menuBtnVars}
         whileHover="hover"
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => setOpenValue((prev) => !prev)}
       >
         <svg
           clipRule="evenodd"

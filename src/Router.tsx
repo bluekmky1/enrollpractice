@@ -1,5 +1,8 @@
+import { motion } from "framer-motion";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { slideropenState } from "./atom";
 import Header from "./Components/Header";
 import SlideHeader from "./Components/SlideHeader";
 import EnrollPage from "./Routes/EnrollPage";
@@ -15,17 +18,21 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const RouteContainer = styled.div`
+const RouteContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   width: 100%;
 `;
 
 const FrameContent = styled.div`
+  width: 100%;
+  margin: 0 auto;
   padding: 0px 23px;
 `;
 
 function Router() {
+  const openValue = useRecoilValue(slideropenState);
   return (
     <BrowserRouter>
       <Container>

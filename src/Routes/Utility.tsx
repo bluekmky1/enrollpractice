@@ -11,7 +11,12 @@ const Container = styled(motion.div)`
 function UtilityPage() {
   const slideOpen = useRecoilValue(slideropenState);
   return (
-    <Container animate={{ width: slideOpen ? "100%" : "calc(100% + 193px)" }}>
+    <Container
+      animate={{
+        width: slideOpen ? "calc(100% + 0px)" : "calc(100% + 193px)",
+        transition: { type: "tween", duration: 0.4 },
+      }}
+    >
       <Outlet />
     </Container>
   );
