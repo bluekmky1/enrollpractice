@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
-import { enrollopenState } from "../../atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { enrollopenState, enrollTime, timeFlow } from "../../atom";
 import { useState } from "react";
 
 const Container = styled.div`
@@ -36,43 +36,61 @@ const TimerLabel = styled.div``;
 
 function SettingTime() {
   const setEnrollOpen = useSetRecoilState(enrollopenState);
-  const [min, setMin] = useState(0);
-  const [sec, setSec] = useState(0);
-
+  const [timeGoing, setTimeGoing] = useRecoilState(timeFlow);
+  const [times, setTimes] = useRecoilState(enrollTime);
   const enrollTimer = (minutes: number) => {
+    // 취소를 누를 때
+    if (minutes === 0) {
+      if (!timeGoing) {
+        return;
+      }
+      clearInterval(timeGoing);
+      setTimeGoing(null);
+      setTimes(0);
+    }
+    // 이미 타이머가 흐르고 있을 때 타이머 재실행 방지
+    if (timeGoing) {
+      return;
+    }
+    // 밀리세컨드 계산 후 수강신청 초기화및 보여지는 시간 계산을 위한 변수(times) 설정
+    let totalMilSec = minutes * 60000;
     setEnrollOpen(false);
-    let minToMill = minutes * 60000;
-    let min = Math.floor(minToMill / 60000);
-    let sec = (minToMill / 1000) % 60;
-    setMin(min);
-    setSec(sec);
+    setTimes(totalMilSec);
+
     const timerId = setInterval(() => {
-      minToMill = minToMill - 1000;
-      min = Math.floor(minToMill / 60000);
-      sec = (minToMill / 1000) % 60;
-      setMin(min);
-      setSec(sec);
-      console.log("수강신청 시작 " + min + "분" + sec + "초 전");
-      if (minToMill === 0) {
+      /*
+      console.log(times);
+       콘솔에 찍으면 enrollTimes가 0으로 찍히는 문제가 있음...
+       왜 이러는지 잘 모르겠음...
+      */
+
+      totalMilSec = totalMilSec - 1000;
+      setTimes(totalMilSec);
+      // 타이머가 끝났을 경우 실행되는 부분
+      if (totalMilSec === 0) {
         clearInterval(timerId);
-        console.log("수강신청 열림");
+        setTimeGoing(null);
         setEnrollOpen(true);
         return;
       }
     }, 1000);
+    // 정지할 타이머를 state에 저장
+    setTimeGoing(timerId);
   };
 
   return (
     <Container>
       <DisplayBox>
         <TimerBox>
-          <TimeBtn onClick={() => enrollTimer(1)}>1초 뒤 시작</TimeBtn>
+          <TimeBtn onClick={() => enrollTimer(0.3)}>1분 뒤 시작</TimeBtn>
+          <TimeBtn onClick={() => enrollTimer(5)}>5분 뒤 시작</TimeBtn>
+          <TimeBtn onClick={() => enrollTimer(0)}>취소</TimeBtn>
         </TimerBox>
 
         <TimerBox>
           <TimerLabel>수강신청까지 남은 시간</TimerLabel>
           <Timer>
-            {min} 분 {sec} 초
+            {Math.floor(times / 60000)} 분 {(times / 1000) % 60} 초
           </Timer>
         </TimerBox>
       </DisplayBox>

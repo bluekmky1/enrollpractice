@@ -26,3 +26,13 @@ export const enrollopenState = atom({
   key: "enrollopen",
   default: false,
 });
+
+export const enrollTime = atom({
+  key: "enrollTime",
+  default: 0,
+});
+
+export const timeFlow = atom<NodeJS.Timeout | null>({
+  key: "timeflow",
+  default: null,
+});
