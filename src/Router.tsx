@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { slideropenState } from "./atom";
 import Header from "./Components/Header";
 import SlideHeader from "./Components/SlideHeader";
 import EnrollPage from "./Routes/EnrollPage";
@@ -32,7 +30,6 @@ const FrameContent = styled.div`
 `;
 
 function Router() {
-  const openValue = useRecoilValue(slideropenState);
   return (
     <BrowserRouter>
       <Container>

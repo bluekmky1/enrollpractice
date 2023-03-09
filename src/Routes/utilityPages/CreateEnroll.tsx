@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { Categories, EnrollPracticeList, enrollList } from "../../atom";
+import { Categories, enrollList } from "../../atom";
 
 const Container = styled.div`
   width: 100%;

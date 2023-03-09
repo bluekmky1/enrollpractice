@@ -1,4 +1,4 @@
-import { color, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { enrollopenState } from "../../atom";
@@ -23,13 +23,6 @@ const DisplayBox = styled(motion.div)`
   font-size: 12px;
 `;
 
-const TimerForm = styled.form`
-  display: flex;
-  justify-content: center;
-
-  width: 100%;
-`;
-
 const TimeBtn = styled.button``;
 
 const TimerBox = styled.div`
@@ -43,33 +36,44 @@ const TimerLabel = styled.div``;
 
 function SettingTime() {
   const setEnrollOpen = useSetRecoilState(enrollopenState);
-  const [timeGoing, setTimeGoing] = useState(false);
+  const [min, setMin] = useState(0);
+  const [sec, setSec] = useState(0);
 
-  const setTimer = (time: number) => {
-    setTimeGoing(true);
-
-    const timeOut = setTimeout(() => {
-      console.log("수강신청 시작");
-      setTimeGoing(false);
-    }, time);
-
-    if (timeGoing) {
-      console.log("이미 타이머가 가고 있습니다.");
-      clearTimeout(timeOut);
-      return;
-    }
+  const enrollTimer = (minutes: number) => {
+    setEnrollOpen(false);
+    let minToMill = minutes * 60000;
+    let min = Math.floor(minToMill / 60000);
+    let sec = (minToMill / 1000) % 60;
+    setMin(min);
+    setSec(sec);
+    const timerId = setInterval(() => {
+      minToMill = minToMill - 1000;
+      min = Math.floor(minToMill / 60000);
+      sec = (minToMill / 1000) % 60;
+      setMin(min);
+      setSec(sec);
+      console.log("수강신청 시작 " + min + "분" + sec + "초 전");
+      if (minToMill === 0) {
+        clearInterval(timerId);
+        console.log("수강신청 열림");
+        setEnrollOpen(true);
+        return;
+      }
+    }, 1000);
   };
 
   return (
     <Container>
       <DisplayBox>
         <TimerBox>
-          <TimeBtn onClick={() => setTimer(5000)}>5초 뒤 시작</TimeBtn>
+          <TimeBtn onClick={() => enrollTimer(1)}>1초 뒤 시작</TimeBtn>
         </TimerBox>
 
         <TimerBox>
           <TimerLabel>수강신청까지 남은 시간</TimerLabel>
-          <Timer>00:00:00</Timer>
+          <Timer>
+            {min} 분 {sec} 초
+          </Timer>
         </TimerBox>
       </DisplayBox>
     </Container>
