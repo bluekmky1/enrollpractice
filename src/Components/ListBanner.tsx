@@ -5,6 +5,7 @@ import styled from "styled-components";
 const ListContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const ListItem = styled(motion.div)`
@@ -19,12 +20,6 @@ const ListItem = styled(motion.div)`
   font-size: 9px;
   font-weight: 600;
   cursor: pointer;
-`;
-
-const ListWhiteSpace = styled.div`
-  width: 100%;
-  height: 28px;
-  border-bottom: 1px black solid;
 `;
 
 interface ListBannerProps {
@@ -52,7 +47,6 @@ function ListBanner({ menuList }: ListBannerProps) {
           {menu}
         </ListItem>
       ))}
-      <ListWhiteSpace />
     </ListContainer>
   );
 }

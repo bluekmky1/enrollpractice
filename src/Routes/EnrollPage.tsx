@@ -13,9 +13,14 @@ const ExplainBox = styled.div`
   font-size: 12px;
 `;
 
+const EnrollBox = styled.div``;
+const BoxTitle = styled.div``;
+const EnrollTable = styled.div``;
+
 function EnrollPage() {
   const enrollOpen = useRecoilValue(enrollopenState);
   const List = [
+    "소망가방",
     "교양",
     "전공",
     "교직",
@@ -31,6 +36,10 @@ function EnrollPage() {
       {enrollOpen ? (
         <>
           <ListBanner menuList={List} />
+          <EnrollBox>
+            <BoxTitle></BoxTitle>
+            <EnrollTable></EnrollTable>
+          </EnrollBox>
         </>
       ) : (
         <ExplainBox>⚠️ 수강신청 기간이 아닙니다</ExplainBox>

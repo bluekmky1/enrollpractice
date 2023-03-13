@@ -24,6 +24,7 @@ export const slideropenState = atom({
 
 export const enrollopenState = atom({
   key: "enrollopen",
+  // false가 기본 디폴트 값이어야함(중요!!!!)
   default: false,
 });
 

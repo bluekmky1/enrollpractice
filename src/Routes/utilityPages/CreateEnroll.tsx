@@ -103,6 +103,7 @@ function CreateEnroll() {
       setError("category", {
         message: "아직 과목번호는 이용 불가합니다.",
       });
+      return;
     }
     if (Enrolls.length > 6) {
       setError("root.enrollAmount", {
@@ -110,17 +111,19 @@ function CreateEnroll() {
         message: "수강신청 개수는 7개를 넘을 수 없습니다!",
       });
     } else {
+      // 이후 과목 코드 형태를 추가할 때에 if문 구절 추가해서 카테고리가 somang과 과목번호로 나눠지게 해야함
+      // 현재는 somang 카테고리 형태로만 추가되는 형태임
       setEnrolls((prev) => [
         ...prev,
         {
           id: prev.length === 0 ? 0 : prev.length,
           title: `수강신청 성공하자 ${prev.length + 1} !!!`,
           subjectCode: Math.floor(Math.random() * 10000),
-          enrollCategory: "string",
+          enrollCategory: Categories.somang,
         },
       ]);
     }
-    console.log();
+    console.log(Enrolls);
   };
 
   return (
@@ -173,9 +176,9 @@ function CreateEnroll() {
                   <td>{enroll.subjectCode}</td>
                   <td>{enroll.title}</td>
                   <td>
-                    {enroll.enrollCategory === Categories.somang
-                      ? "소망가방"
-                      : "과목코드"}
+                    {enroll.enrollCategory !== Categories.somang
+                      ? "과목코드"
+                      : "소망가방"}
                   </td>
                 </tr>
               ))}

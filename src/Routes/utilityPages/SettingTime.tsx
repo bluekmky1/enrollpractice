@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { enrollopenState, enrollTime, timeFlow } from "../../atom";
-import { useState } from "react";
 
 const Container = styled.div`
   width: 100%;
@@ -32,18 +31,25 @@ const TimerBox = styled.div`
 const Timer = styled.div`
   font-size: 70px;
 `;
-const TimerLabel = styled.div``;
+const TimerLabel = styled.div`
+  font-size: 13px;
+  margin-bottom: 5px;
+`;
 
 function SettingTime() {
-  const setEnrollOpen = useSetRecoilState(enrollopenState);
+  const [enrollOpen, setEnrollOpen] = useRecoilState(enrollopenState);
   const [timeGoing, setTimeGoing] = useRecoilState(timeFlow);
   const [times, setTimes] = useRecoilState(enrollTime);
   const enrollTimer = (minutes: number) => {
     // 취소를 누를 때
     if (minutes === 0) {
+      // 일반 상태에서 취소를 눌렀을 때
+      setEnrollOpen(false);
       if (!timeGoing) {
+        setEnrollOpen(false);
         return;
       }
+      // 시간이 흐르는 도중 취소를 눌렀을 때
       clearInterval(timeGoing);
       setTimeGoing(null);
       setTimes(0);
@@ -82,15 +88,21 @@ function SettingTime() {
     <Container>
       <DisplayBox>
         <TimerBox>
-          <TimeBtn onClick={() => enrollTimer(0.3)}>1분 뒤 시작</TimeBtn>
+          <TimeBtn onClick={() => enrollTimer(0.1)}>1분 뒤 시작</TimeBtn>
           <TimeBtn onClick={() => enrollTimer(5)}>5분 뒤 시작</TimeBtn>
           <TimeBtn onClick={() => enrollTimer(0)}>취소</TimeBtn>
         </TimerBox>
 
         <TimerBox>
-          <TimerLabel>수강신청까지 남은 시간</TimerLabel>
+          <TimerLabel>{enrollOpen ? "" : "수강신청까지 남은 시간"}</TimerLabel>
           <Timer>
-            {Math.floor(times / 60000)} 분 {(times / 1000) % 60} 초
+            {enrollOpen ? (
+              "수강신청 시작!!"
+            ) : (
+              <>
+                {Math.floor(times / 60000)} 분 {(times / 1000) % 60} 초
+              </>
+            )}
           </Timer>
         </TimerBox>
       </DisplayBox>
