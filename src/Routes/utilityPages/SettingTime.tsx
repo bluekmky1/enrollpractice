@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { enrollopenState, enrollTime, timeFlow } from "../../atom";
+import {
+  enrollList,
+  enrollopenState,
+  enrollReady,
+  enrollTime,
+  timeFlow,
+} from "../../atom";
 
 const Container = styled.div`
   width: 100%;
@@ -37,16 +43,21 @@ const TimerLabel = styled.div`
 `;
 
 function SettingTime() {
+  const setEnrollList = useSetRecoilState(enrollList);
+  const setReady = useSetRecoilState(enrollReady);
+
   const [enrollOpen, setEnrollOpen] = useRecoilState(enrollopenState);
   const [timeGoing, setTimeGoing] = useRecoilState(timeFlow);
   const [times, setTimes] = useRecoilState(enrollTime);
   const enrollTimer = (minutes: number) => {
-    // 취소를 누를 때
+    // 일반 상태에서 취소를 눌렀을 때 실행
     if (minutes === 0) {
-      // 일반 상태에서 취소를 눌렀을 때
       setEnrollOpen(false);
       if (!timeGoing) {
+        //시간이 갈 때 취소를 누를 때 실행 안됨
         setEnrollOpen(false);
+        setEnrollList((prev) => (prev = []));
+        setReady(false);
         return;
       }
       // 시간이 흐르는 도중 취소를 눌렀을 때
