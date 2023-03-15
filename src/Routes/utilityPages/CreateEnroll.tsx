@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { Categories, enrollList, enrollReady } from "../../atom";
-import { useState } from "react";
 
 const Container = styled.div`
   width: 100%;
@@ -176,10 +175,10 @@ function CreateEnroll() {
           />
           <ErrorBox>{errors.root?.enrollAmount.message}</ErrorBox>
 
-          <CreateBtn>생성</CreateBtn>
+          <CreateBtn>수강신청 연습 생성</CreateBtn>
         </CreateForm>
       </DisplayBox>
-      <DisplayBox>
+      <DisplayBox style={{ display: ready ? "flex" : "none" }}>
         <TableBox>
           <EnrollDisplay>
             <thead>

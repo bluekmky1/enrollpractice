@@ -28,7 +28,23 @@ const DisplayBox = styled(motion.div)`
   font-size: 12px;
 `;
 
-const TimeBtn = styled.button``;
+const TimeBtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+`;
+
+const TimeBtn = styled(motion.button)`
+  padding: 0 15px;
+  height: 36px;
+  border-radius: 3px;
+
+  background-color: #2142a6;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  border: none;
+`;
 
 const TimerBox = styled.div`
   text-align: center;
@@ -41,6 +57,13 @@ const TimerLabel = styled.div`
   font-size: 13px;
   margin-bottom: 5px;
 `;
+
+const BtnVars = {
+  onTab: {
+    boxShadow: `rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset`,
+  },
+};
 
 function SettingTime() {
   const setEnrollList = useSetRecoilState(enrollList);
@@ -98,11 +121,29 @@ function SettingTime() {
   return (
     <Container>
       <DisplayBox>
-        <TimerBox>
-          <TimeBtn onClick={() => enrollTimer(0.1)}>1분 뒤 시작</TimeBtn>
-          <TimeBtn onClick={() => enrollTimer(5)}>5분 뒤 시작</TimeBtn>
-          <TimeBtn onClick={() => enrollTimer(0)}>취소</TimeBtn>
-        </TimerBox>
+        <TimeBtnBox>
+          <TimeBtn
+            variants={BtnVars}
+            whileTap="onTab"
+            onClick={() => enrollTimer(0.1)}
+          >
+            1분 뒤 시작
+          </TimeBtn>
+          <TimeBtn
+            variants={BtnVars}
+            whileTap="onTab"
+            onClick={() => enrollTimer(5)}
+          >
+            5분 뒤 시작
+          </TimeBtn>
+          <TimeBtn
+            variants={BtnVars}
+            whileTap="onTab"
+            onClick={() => enrollTimer(0)}
+          >
+            취소
+          </TimeBtn>
+        </TimeBtnBox>
 
         <TimerBox>
           <TimerLabel>{enrollOpen ? "" : "수강신청까지 남은 시간"}</TimerLabel>
