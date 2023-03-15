@@ -18,6 +18,11 @@ export const enrollList = atom<EnrollPracticeList[]>({
   default: [],
 });
 
+export const prevEnrollList = atom<EnrollPracticeList[]>({
+  key: "prevEnrollList",
+  default: [],
+});
+
 // 왼쪽 슬라이더 바가 보이는지 안보이는지
 export const slideropenState = atom({
   key: "slideropen",
@@ -28,7 +33,7 @@ export const slideropenState = atom({
 export const enrollopenState = atom({
   key: "enrollopen",
   // false가 기본 디폴트 값이어야함(중요!!!!)
-  default: false,
+  default: true,
 });
 
 export const enrollReady = atom({
